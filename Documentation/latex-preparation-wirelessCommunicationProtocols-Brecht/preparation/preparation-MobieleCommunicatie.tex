@@ -1,0 +1,583 @@
+
+% -----------------------------
+% --- Title - Author - Date ---
+% -----------------------------
+%\newcommand{\mytitle}{\LARGE{BOEIend!}\\Preparation Mobiele Communcatie} % chktex 8
+\author{Brecht Van Eeckhoudt}
+\newcommand{\mydate}{\today} % chktex 8
+
+\title{\vspace{-1.5cm}\LARGE{\textbf{BOEIend!}} \\ \large \MakeUppercase{Preparation -- Mobile Communications} \vspace{-0.5cm}}
+\date{\vspace{-0.7cm}\normalsize \mydate}
+
+
+% -----------------------------------
+% --- Basic settings and packages ---
+% -----------------------------------
+\documentclass[11pt,a4paper,twoside]{article} % `report' is also nice, it'll make sure we need to use less \clearpage because of \chapter{title} -- The need to remap figure numbering also dissapears when using report
+% https://tex.stackexchange.com/questions/36988/regarding-the-book-report-and-article-document-classes-what-are-the-mai
+
+\usepackage[a4paper,margin=3cm,marginparwidth=2.5cm]{geometry}   % Paper size and margins -- "twoside" for double sided printing
+\usepackage[dutch]{babel}                   % Culturally-determined typographical rules
+\usepackage[utf8x]{inputenc}                % Input accents characters from keyboard
+\usepackage{amsmath}                        % Math stuff
+
+\usepackage{graphicx}                       % Insertion of pictures
+\usepackage{float}							% [H]
+\usepackage{booktabs}						% Toprule, midrule, bottomrule
+%\usepackage{wasysym}			            % \Square command
+%\usepackage{marvosym}                       % \Male \Female $\EUR$
+%\usepackage{MnSymbol}                       % \diameter
+%\usepackage[electronic]{ifsym}			    % \RaisingEdge
+\usepackage{soul}							% Highlight with \hl{}
+
+\usepackage[colorinlistoftodos]{todonotes}  % Todo notes
+\usepackage[T1]{fontenc}                    % All underscores use ttt font
+
+\usepackage{hyperref}                       % Hyperlinks in table of contents and links
+\def\UrlBreaks{\do\/ \do-} % chktex 21		% Let Hyperlinks break at / and -
+\renewcommand\UrlFont{\color{blue}\ttfamily} % Change URL style and color to blue
+\usepackage{url}							% Let URL's break at certain points
+
+\usepackage[labelfont=bf]{caption}          % Caption labels in bold
+\setlength{\parindent}{0em}                 % No new paragraph indentation
+\setlength{\parskip}{1em}                   % Space between paragraphs
+
+\usepackage[nottoc,notlot,notlof]{tocbibind} % Make references show up in table of contents
+\usepackage{tocloft}                        % Add dots to all lines in table of contents
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+
+% -----------------------
+% --- Custom commands ---
+% -----------------------
+% \link{https://...}
+\DeclareRobustCommand{\link}[1]{{\underline{\textcolor{blue}{\texttt{#1}}}}} % Underline in blue
+
+% \hl{} \hlcyan{}
+\DeclareRobustCommand{\hlcyan}[1]{{\sethlcolor{cyan}\hl{#1}}} % Highlight in cyan
+
+
+% -----------------------
+% --- Header & Footer ---
+% -----------------------
+\usepackage{lastpage}                       % Last page reference
+\usepackage{fancyhdr}                       % Fancy headers & footers
+\pagestyle{fancy}                           % Enable fancy headers
+\fancyhf{}                                  % Clear all headers and footers
+\renewcommand{\headrulewidth}{1pt}          % Enable header line
+\renewcommand{\footrulewidth}{1pt}          % Enable footer line
+% Set new page numbering left even right oneven
+\fancyfoot[LE,RO]{\thepage{}~van~\pageref{LastPage}}
+\fancyfoot[LO,RE]{Preparation -- BOEIend! (Mobile Communications)}
+
+% Redefine plain style, it is used for pages with new chapters
+\fancypagestyle{plain}{
+    \fancyhf{}
+	\fancyfoot[LE,RO]{\thepage{}~van~\pageref{LastPage}}
+	\fancyfoot[LO,RE]{Preparation -- BOEIend! (Mobile Communications)} 
+    \renewcommand{\headrulewidth}{1pt}
+    \renewcommand{\footrulewidth}{1pt}
+}
+
+
+% -----------------------------
+% --- Other useful packages ---
+% -----------------------------
+%\usepackage{chngcntr}						% Alternate figure and table numbering
+%\counterwithin{figure}{section}			% Label figures by section
+%\counterwithin{table}{section}				% Label tables by section
+
+%\usepackage[none]{hyphenat}					% Disable all hyphenation in entire text
+
+
+% -----------------------
+% --- Quick reference ---
+% -----------------------
+{
+	% Globally (in itemize) change `item' symbol:
+		% \renewcommand{\labelitemi}{$\rightarrow$}
+		% \renewcommand{\labelitemii}{$\Rightarrow$}
+		% \renewcommand{\labelitemiii}{$\rightarrow$}
+		% \renewcommand{\labelitemiv}{$\rightarrow$}
+
+	% Bold enumeration
+		% \usepackage{enumitem}                       % Bold enumerate numbers
+		% \begin{enumerate}[label=\textbf{\arabic*.}]
+
+	% Enumerate, itemize, description
+		% \itemsep0em
+		% \begin{description}
+		%	\item [label] First item
+		%	\item [label] Second item
+		% \end{description}
+		
+	% Insert picture:
+		% \begin{figure}[H]
+		%	\begin{center}
+		%    	\includegraphics[width=0.3\textwidth]{imports/info-alu-blokschema.png}
+		%	    \caption{\label{fig:pic1}Een caption van een figuur zetten we eronder.}
+		%	\end{center}
+		% \end{figure}
+		
+	% Nice table:
+		% \begin{table}[H]
+		%	\begin{center}
+		%   	\caption{\label{tab:waarheid-regcnt}Een caption van een tabel zetten we bovenaan}
+		%		\begin{tabular}{ c c c c c }
+		%			\toprule
+		%			$clk$        & $clr$ & $le$ & $cnt$ & $reg$     \\ \midrule
+		%			\RaisingEdge{} & 1     & X    & X		& 0..0      \\
+		%			\RaisingEdge{} & 0     & 1    & X     & $d_{in}$  \\
+		%			\RaisingEdge{} & 0     & 0    & 1     & $reg + 1$ \\
+		%			\bottomrule
+		%		\end{tabular}
+		%	\end{center}
+		% \end{table}
+		
+	% Minipage:
+		% \begin{table/figure}[H]
+		%	\caption{\label{tab:glob}Global TABLE caption.}
+		%	\begin{center}
+		%		\begin{minipage}{.48\textwidth}
+		%
+		%		\end{minipage}\hfill
+		%		\begin{minipage}{.48\textwidth}
+		%			
+		%		\end{minipage}\hfill	
+		%	\end{center}
+		%	\caption{\label{fig:glob}Global FIGURE caption.}
+		% \end{table/figure}
+
+	% References & Bibiliography:
+		% \cite{fsm1}
+		% figuur~\ref{fig:pic1}
+
+		% \begin{thebibliography}{9} % 9 for numeric labels
+		% \bibitem{fsm1} Wikipedia, \textit{Finite-state machine}, \\
+		% \url{https://en.wikipedia.org/wiki/Finite-state_machine}
+		% \end{thebibliography}
+}
+
+% -----------------
+% --- Debugging ---
+% -----------------
+%\usepackage[inline]{showlabels}             % Show the labels (debugging) https://www.sharelatex.com/blog/2012/01/31/keep-track-of-your-labels-with-showlabels.html
+
+%\usepackage{showframe}						% Debugging of frames
+% Put \fbox{} around minipage for debugging!
+
+%\usepackage{lineno}                         % Number every line
+%\linenumbers                                % Number every line
+
+
+
+% -------------------------
+% --- BEGIN OF DOCUMENT ---
+% -------------------------
+\begin{document}
+
+\maketitle
+\vspace{-1cm}
+\noindent\rule{\textwidth}{1pt}
+\vspace{0.5cm}
+
+\tableofcontents
+
+\clearpage
+
+\section{Begrippen}
+
+\subsection{Internet-of-things (IoT)}
+
+\begin{description}
+	\item [Betekenis] `Alles' wordt verbonden met het internet.
+	\item [Voorbeeld] Via een slimme termostaat kan via het internet met bijvoorbeeld een app op een smartphone de verwarming vanop afstand aan of uit gezet worden.
+\end{description}
+
+
+\subsection{Cyber physical systems}
+
+Zie ook \textbf{\ref{subsec:ind4} -- Industry 4.0}
+\vspace{-0.5cm}
+
+\begin{description}
+	\item [Betekenis] \cite{cps} Cyber-Physical Systems (CPS) is een verzameling van berekeningen (\textit{computation}), netwerken (\textit{networking}) en fysieke processen (\textit{physical processes}). Embedded computers en netwerken monitoren en controleren fysieke processen met \textit{feedback loops} waar fysieke processen invloed hebben op berekeningen en omgekeerd. 
+	
+	De technologie maakt gebruik van de `oudere' (maar nog steeds jonge) embedded systemen dewelke oorspronkelijk niet bedoeld waren om berekeningen uit te voeren (auto's, speelgoed, medische apparaten, wetenschappelijke instrumenten, \dots).
+
+	\item [Voorbeeld] Een \textit{Smart grid} \cite{smartGrid} kan via onder andere een verzameling van `slimme' meters bij gebruikers thuis beter schommelingen in het energieverbruik detecteren en compenseren om bijvoorbeeld \textit{blackouts} tegen te gaan.
+\end{description}
+
+\clearpage
+
+
+\subsection{Industry 4.0}\label{subsec:ind4}
+
+\begin{description}
+	\itemsep0em
+	\item [Industry 1.0] Mechanisatie, stoommachines, weefgetouwen, \dots \cite{industry4}
+	\item [Industry 2.0] Massaproductie, assemblagelijnen, elektrische energie, \dots
+	\item [Industry 3.0] Automatisatie, robots, computers en elektronica, \dots
+	\item [Industry 4.0] \textit{Cyber-physical systems}, \textit{Internet of Things}, netwerken, \dots
+\end{description}
+
+\begin{description}
+	\item [Betekenis] De `vierde industriële revolutie' gaat gepaard met de integratie van onder andere \textit{Cyber-physical systems} en \textit{Internet of Things} in de productie in bedrijven. De fabrieken die dit toepassen worden `slimme' fabrieken genoemd. De fysieke processen in de fabriek wordt dan gemonitord door \textit{Cyber-physical systems} dewelke gedecentraliseerde beslissingen maken.\\
+
+	\cite{industry42} \textbf{Om een fabriek deel te laten uitmaken van \textit{Industry 4.0} moeten volgende eigenschappen aanwezig zijn:}
+	\begin{description}
+		\item [Interoperability] Machines, apparaten, sensoren en mensen zijn met elkaar verbonden en communiceren met elkaar.
+		\item [Information transparency] De systemen creëren een virtuele kopie van de fysieke wereld met behulp van data afkomstig van sensoren om informatie te contextualiseren.
+		\item [Technical assistance] De systemen kunnen mensen helpen in het maken van beslissingen en het oplossen van problemen alsook de mensen ondersteunen met taken die te moeilijk of gevaarlijk zijn.
+		\item [Decentralized decision-making] \textit{Cyber-physical systems} maken (simplele) beslissingen op zichtzelf en worden zo autonoom als mogelijk.
+	\end{description}
+	\vspace{0.5cm}
+
+	\item [Voorbeeld] \cite{industry43} In de logistiek kan alles met elkaar verbonden worden om zo alles optimaal te laten verlopen. Indien er bijvoorbeeld slecht weer optreed kan een bepaald systeem een beslissing nemen en iets aanpassen om geen vertraging in leveringen te veroorzaken.
+
+	Een ander voorbeeld zijn autonome robots die bij Amazon producten uit een magazijn halen en deze verpakken en opsturen. Op deze manier kunnen deze magazijnen veel compacter gebouwd worden.
+
+\end{description}
+
+\clearpage
+
+
+\subsection{Circulaire economie}
+
+\begin{description}
+	\item [Betekenis] \cite{circulair} In een circulaire economie worden tal van strategieën toegepast om materialen en producten zo hoogwaardig mogelijk te blijven inzetten in de economie. Ze worden hersteld, hebben een hoge tweedehandswaarde, zijn upgradebaar, kunnen makkelijk uit elkaar gehaald worden en omgevormd worden tot nieuwe producten.
+	
+	De gekozen materialen zijn bij de geboorte gerecycleerd of biogebaseerd, en bij het levenseinde recycleerbaar of afbreekbaar. Er mag niets verloren gaan.\\
+
+	\textbf{De voornaamste redenen waarom we naar een circulaire economie zullen moeten gaan zijn:}
+	\begin{description}
+		\item [Grondstoffen zijn niet oneindig] Er komen steeds meer mensen bij waardoor de vraag naar grondstoffen en producten dus ook steeds groter wordt. Hier staat tegenover dat het nu steeds moeilijker wordt om nieuwe bronnen te vinden en ontginnen ook steeds lastiger wordt.
+
+		\item [Onze open economie is grondstof-gevoelig] Vlaamse maakbedrijven zijn sterk afhankelijk van de invoer van grondstoffen. De beschikbaarheid van grondstoffen kan snel omslaan. De lijst met `kritieke' grondstoffen wordt steeds langer.
+
+		\item [Duurzaamheid en klimaat] De milieu-impact van steeds dieper en verder graven naar steeds meer verse grondstoffen is zeer groot. Ook het transporteren en er goederen van maken heeft een hoge energiekost die zich vertaalt in CO2-uitstoot.
+
+		\item [Kans voor innovatie en nieuwe economische activiteiten] Vlaanderen staat nu al aan de top als het gaat om het sluiten van de materiaalkringlopen. Die koppositie kan men verzilveren door de oplossingen en opgedane kennis op te schalen in binnen- en buitenland. 
+		
+		Voor ondernemingen is de transformatie naar \textit{Industry 4.0} ook nauw verbonden met de evolutie richting een circulaire economie.
+
+		\item [Kansen voor nieuwe jobs] Een circulaire economie heeft nood aan een nieuw palet aan kennis en kunde. Er ontstaan nieuwe kansen voor ambachtslui, makers, herstellers, sorteerders, assembleurs, herbestemmers, recycleurs, transporteurs, creatieve ontwerpers, platformontwikkelaars, \dots
+	\end{description}
+
+	In de circulaire economie is er een bijzondere plaats voor de \textbf{deeleconomie}, of meer algemeen \textbf{`gebruik boven eigendom'}. Het idee dat we niet alle spullen die we gebruiken ook altijd zelf moeten aanschaffen, kan immers bijdragen tot een meer circulaire economie. Veel goederen die we aanschaffen (zoals bijvoorbeeld een boormachine of een auto) blijven het grootste deel van hun leven ongebruikt, wat als zonde kan gezien worden van de geïnvesteerde energie en grondstoffen om die producten te maken.
+
+	\vspace{0.5cm}
+
+	\item [Voorbeeld] Een wasmachine zal in een circulaire economie eerst en vooral langer meegaan. Gaat hij toch stuk of voldoet hij niet meer aan de standaarden zal hij eerst hersteld worden of een upgrade krijgen waarna hij vervolgens opnieuw kan verkocht worden. Indien dit niet het geval is zullen uit de herbruikbare onderdelen nieuwe machines worden gemaakt. Als ook dat niet meer kan worden de materialen van de machines gerecycleerd tot nieuwe materialen. Afval wordt dan grondstof. De circulaire economie heeft daarbij \textbf{maatwerk} nodig: soms is recyclage de beste optie, soms herstel.
+\end{description}
+
+%----------------------------------------------------------------------------------------
+
+\section{(High-level) characteristics of wireless protocols}
+
+Used sources (combined in the following subchapters):
+\vspace{-0.5cm}
+\begin{itemize}
+	\itemsep0em
+	\item \cite{wireless1}: \texttt{6LowPAN} and \texttt{Thread} not discussed.
+	\item \cite{wireless2}: \texttt{6LoWPAN}, \texttt{Thread}, \texttt{LTE-M1}, \texttt{NB-IoT}\footnote{Narrowband IoT}, \texttt{RFID}, \texttt{Ingenu}, \texttt{Weightless-N-P-W}, \texttt{ANT \& ANT+}, \texttt{DigiMesh}, \texttt{MiWi}, \texttt{EnOcean}, \texttt{Dash7} and \texttt{WirelessHART} not discussed.
+	\item \cite{wireless3}, \cite{BTzigbee}, \cite{BTvBLE}
+\end{itemize}
+
+\subsection{Bluetooth}
+Originally designed for continuous, streaming data applications, for example for short-range file transfer or to connect smartphones to wearable products, wireless speakers and headphones.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard]
+	\item [Frequency] 2.4 GHz (ISM\footnote{Industrial Science Medical}) (2400-2483.5 MHz range)
+	\item [Additional wireless info] 79 designated channels, each of which have 1 MHz bandwidth.
+	\item [Range] \footnote{\hl{Bluetooth 5.0 is coming out soon and claims to quadruple the range}}
+	\item [Bitrate] 1-3 Mbit/s
+	\item [Power Usage] 1w
+	\item [Infrastructure] Widely used by almost every smartphone and laptop.
+	\item [Network topology] Device to device, PAN\footnote{Personal Area Network}
+\end{description}
+
+\clearpage
+
+
+\subsection{Bluetooth Low Energy (BLE) / Bluetooth Smart}
+Has a similar range to Bluetooth but is for small chunks of data. Remains in sleep mode except when a connection is initiated. The actual connection times are only a few mS, unlike Bluetooth which would take ~100mS. The reason the connections are so short, is that the data rates are so high at 1 Mb/s.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] Bluetooth 4(.2) core specification
+	\item [Frequency] 2.4GHz
+	\item [Range] 50-150m\footnote{\hl{Source} \cite{BTzigbee} \hl{says that BLE has a much shorter range than ZigBee but this does not seem to reflect in other data?}}
+	\item [Bitrate] 1Mbps (short bursts, sleeps in between) (\cite{BTzigbee}: 270 kbps)
+	\item [Power Usage] 10-100mW
+	\item [Infrastructure] Only the newest smartphones support this standard.
+	\item [Network topology] PAN\footnote{Personal Area Network}: Mesh and star.
+	\item [Modulation] Frequency-hopping spread spectrum (FHSS)
+\end{description}
+
+
+\subsection{ZigBee}
+Mostly found in industrial settings for applications with relatively infrequent data exchanges at low data-rates inside homes/buildings. Use-cases include wireless thermostats and lighting systems. ZigBee and RF4CE (ZigBee Remote Control) offer high security, robustness and high scalability with high node counts.\footnote{\hl{Source} \cite{BTzigbee} \hl{says that because of increased latency when multiple nodes try to pass through a single node to get to the gateway, ZigBee isn't ideal when there's a high density of nodes (like in a factory, for example)}} Sometimes interoperability problems occur due to two ZigBee modules not being exactly compatible \dots
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] ZigBee 3.0 based on IEEE802.15.4 (not proprietary)
+	\item [Frequency] 2.4GHz
+	\item [Range] 10-100m\footnote{Similar to Z-Wave, the range can grow based on the number of devices in the network. The signal `jumps' from device to device until it reaches the HUB and every device that is alway powered on acts as a repeater. Zigbee has the ability to hop further than Z-Wave (30 hops as compared to 4). However, \hl{more hops = more latency}.}
+	\item [Bitrate] 250kbps (low-channel bandwidth of 1MHz)
+	\item [Power Usage] 10-100mW
+	\item [Infrastructure] Not compatible with smartphones or laptops. More development-modules and chips available compared to Z-Wave but not all of them interconnect without problems.
+	\item [Network topology] WPAN\footnote{Wireless Personal Area Networks}: Mesh LAN
+	\item [Modulation] Direct-sequence spread spectrum (DSSS)
+\end{description}
+
+\clearpage
+
+
+\subsection{Z-Wave}
+Primarily designed for home automation for products such as lamp controllers and sensors. Optimized for reliable and low-latency communication of small data packets. This protocol is impervious to interference from WiFi and other wireless technologies in the 2.4-GHz range such as Bluetooth or ZigBee.
+
+Z-Wave uses a simpler protocol than some others, which can enable faster and simpler development, but the only maker of chips is `Sigma Designs'. Z-Wave is generally more expensive but is more reliable since it's on it's own frequency and the Z-Wave Alliance puts strict guidelines in place to make sure everything communicates with eachother like it should (better interoperability).
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] Z-Wave Alliance ZAD12837 / ITU-T G.9959 (proprietary)
+	\item [Frequency] 900MHz (ISM)
+	\item [Range] 30m\footnote{The range can grow based on the number of devices you have in your network. There is a maximum of 4 hops.}
+	\item [Bitrate] 9.6/40/100kbit/s 
+	\item [Power Usage]
+	\item [Infrastructure] Not compatible with smartphones, less development-modules and chips available compared to ZigBee since there is only one chip-producer.
+	\item [Network topology] Supports full mesh networks without the need for a coordinator node and is very scalable, enabling control of up to 232 devices. 
+\end{description}
+
+
+\subsection{WiFi}
+Offers serious throughput in the range of hundreds of megabit per second, which is fine for file transfers, but may be too power-consuming for many IoT applications. 
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] Based on 802.11n (most common in homes as of 2015)
+	\item [Frequency] 2.4GHz and 5GHz bands
+	\item [Range] Approximately 50m (30-100m)
+	\item [Bitrate] 600 Mbps maximum, but 150-200Mbps is more typical, depending on channel frequency used and number of antennas (latest 802.11-ac standard should offer 500Mbps to 1Gbps) 
+	\item [Power Usage]
+	\item [Infrastructure] Widely used, a lot of cheap development modules and chips, compatible with smartphones.
+	\item [Network topology] LAN, Star-network.
+\end{description}
+
+\clearpage
+
+
+\subsection{WiFi-ah (HaLow)}
+Designed specifically for low data rate, long-range sensors and controllers, 802.11ah is far more IoT-centric than many other WiFi counterparts.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] 802.11ah
+	\item [Frequency] 900MHz (ISM)
+	\item [Range] 50\% longer than those of 802.11n products
+	\item [Bitrate] 150kbits/s (1MHz band) - 40mbits/s (8MHz band)
+	\item [Power Usage]
+	\item [Infrastructure]
+	\item [Network topology]
+\end{description}
+
+
+\subsection{Cellular}
+Long distance IoT applications but very power-consuming. Can be ideal for sensor-based low-bandwidth-data projects that will send very low amounts of data over the Internet.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] GSM/GPRS/EDGE (2G), UMTS/HSPA (3G), LTE\footnote{LTE Cat 0, 1, and 3: With LTE classes, the lower the speed, the lower the amount of power they use. LTE Cat 1 and 0 are typically more suitable for IoT devices.} (4G)
+	\item [Frequency] 900/1800/1900/2100MHz
+	\item [Range] 35km max for GSM; 200km max for HSPA
+	\item [Bitrate] (typical download): 35-170kps (GPRS), 120-384kbps (EDGE), 384Kbps-2Mbps (UMTS), 600kbps-10Mbps (HSPA), 3-10Mbps (LTE) 
+	\item [Power Usage]
+	\item [Infrastructure] Widely used but the development modules and chips are very pricey, compatible with smartphones.
+	\item [Network topology]
+\end{description}
+
+
+\subsection{Near Field Communication (NFC)}
+Simple and safe two-way interactions between electronic devices, and especially applicable for smartphones, allowing consumers to perform contactless payment transactions, access digital content and connect electronic devices. Essentially it extends the capability of contactless card technology and enables devices to share information at a distance that is less than 4cm.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] ISO/IEC 18000-3
+	\item [Frequency] 13.56MHz (ISM)
+	\item [Range] 10cm
+	\item [Bitrate] 100–420kbps
+	\item [Power Usage]
+	\item [Infrastructure] Compatible with some smartphones.
+	\item [Network topology]
+\end{description}
+
+
+\subsection{Sigfox}
+An alternative wide-range technology is Sigfox, which in terms of range comes between WiFi and cellular. It uses the ISM bands, which are free to use without the need to acquire licenses, to transmit data over a very narrow spectrum to and from connected objects. Sigfox uses a technology called Ultra Narrow Band (UNB) and is only designed to handle low data-transfer speeds of 10 to 1,000 bits per second. 
+
+The network offers a robust, power-efficient and scalable network that can communicate with millions of battery-operated devices across areas of several square kilometres, making it suitable for various M2M\footnote{Machine to Machine, } applications that are expected to include smart meters, patient monitors, security devices, street lighting and environmental sensors.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] Sigfox
+	\item [Frequency] 900MHz
+	\item [Range] 30-50km (rural environments), 3-10km (urban environments)
+	\item [Bitrate] 10-1000bps
+	\item [Power Usage] Only 50 microwatts ($\leftrightarrow$ 5000 microwatts: cellular), typical stand-by time of 20 years with a 2.5Ah battery ($\leftrightarrow$ only 0.2 years: cellular)
+	\item [Infrastructure] Major cities across Europe, ten cities in the UK (as of 2015)
+	\item [Network topology]
+	\item [Modulation] narrowband BPSK
+\end{description}
+
+
+\subsection{Neul}
+Similar in concept to Sigfox and operating in the sub-1GHz band, Neul leverages very small slices of the TV White Space spectrum to deliver high scalability, high coverage, low power and low-cost wireless networks. Systems are based on the Iceni chip, which communicates using the white space radio to access the high-quality UHF spectrum, now available due to the analogue to digital TV transition. 
+
+The communications technology is called Weightless, which is a new wide-area wireless networking technology designed for the IoT that largely competes against existing GPRS, 3G, CDMA and LTE WAN solutions.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] Neul
+	\item [Frequency] 900MHz (ISM), 458MHz (UK), 470-790MHz (White Space)
+	\item [Range] 10km
+	\item [Bitrate] Few bps up to 100kbps
+	\item [Power Usage] As little as 20 to 30mA from 2xAA batteries, meaning 10 to 15 years in the field.
+	\item [Infrastructure]
+	\item [Network topology]
+\end{description}
+
+
+\subsection{LoRaWAN}
+Similar in some respects to Sigfox and Neul, LoRaWAN targets wide-area network (WAN) applications and is designed to provide low-power WANs with features specifically needed to support low-cost mobile secure bi-directional communication in IoT, M2M and smart city and industrial applications. Optimized for low-power consumption and supporting large networks with millions and millions of devices.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] LoRaWAN
+	\item [Frequency] Various
+	\item [Range] 2-5km (urban environment), 15km (suburban environment)
+	\item [Bitrate] 0.3-50 kbps
+	\item [Power Usage]
+	\item [Infrastructure]
+	\item [Network topology]
+\end{description}
+
+
+\subsection{Ultra Wide Band (UWB)}
+\cite{DW1000}, \cite{DW}: Ultra accurate (10 cm), low power, low cost, real time, high bandwidth, high density, very reliable. Ideal for RTLS\footnote{Real Time Location Systems} asset tracking.
+\vspace{-0.5cm}
+\begin{description}
+	\itemsep0em
+	\item [Standard] IEEE802.15.4-2011 UWB
+	\item [Frequency] 6 RF bands from 3.5 GHz to 6.5 GHz
+	\item [Range] 290m @ 110 kbps
+	\item [Bitrate] 110 kbps, 850 kbps, 6.8 Mbps
+	\item [Power Usage] 50 nA deep-sleep, 1 µA sleep, TX @ MAX gain \& channel 5: 70 mA on 3v3 rail, 90 mA on 1v8 rail (need to combine the two) (very short pulses)
+	\item [Infrastructure] Not a lot of development modules and chips, relatively new technology, more expensive.
+	\item [Network topology] Point to point (Two Way Ranging) or Mesh (Time Difference Of Arrival)
+\end{description}
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+
+\section{Additional links with more info}
+
+\subsection{LoRa TDOA}
+
+{
+	\footnotesize
+	\begin{itemize}
+		\itemsep0em
+		\item \url{https://www.thethingsnetwork.org/forum/t/location-by-triangulation/435/10}
+		\item \url{https://www.researchgate.net/publication/325330322_TDoA-Based_Outdoor_Positioning_with_Tracking_Algorithm_in_a_Public_LoRa_Network}
+		\item \url{https://www.hindawi.com/journals/wcmc/2018/1864209/}
+		\item \url{https://www.link-labs.com/blog/lora-localization}
+	\end{itemize}
+}
+
+\subsection{(High-level) characteristics of wireless protocols}
+
+{
+	\footnotesize
+	\begin{itemize}
+		\itemsep0em
+		\item \url{https://www.digikey.be/en/articles/techzone/2017/oct/comparing-low-power-wireless-technologies}
+		\item \url{https://www.digikey.be/en/articles/techzone/2017/dec/comparing-low-power-wireless-technologies-part-2}
+		\item \url{https://www.digikey.be/en/articles/techzone/2017/dec/comparing-low-power-wireless-technologies-part-3}
+		\item \url{http://wireless.ictp.it/school_2017/Slides/IoTWirelessStandards.pdf}
+		\item \url{https://www.postscapes.com/internet-of-things-protocols/}
+		\item \url{https://ieeexplore.ieee.org/document/8079928}\\
+	
+		\item \url{https://medium.com/iotforall/what-are-zigbee-wifi-bluetooth-ble-and-wimax-260916018f34}
+		\item \url{https://www.cabotsolutions.com/2018/02/ble-vs-wi-fi-which-is-better-for-iot-product-development}
+		\item \url{https://www.quora.com/What-are-the-pros-and-cons-of-Bluetooth-Low-Energy-versus-Zigbee}
+		\item \url{https://nl.wikipedia.org/wiki/ZigBee}
+		\item \url{https://www.link-labs.com/blog/iot-module-selection}
+		\item \url{https://www.link-labs.com/blog/bluetooth-based-smart-sensor-networks}\\
+	
+		\item \url{https://www.link-labs.com/blog/future-of-wifi-802-11ah-802-11ad}
+		\item \url{https://www.link-labs.com/blog/zigbee-vs-bluetooth}
+		\item \url{https://www.link-labs.com/blog/ble-range}
+		\item \url{https://www.link-labs.com/blog/z-wave-vs-zigbee}
+		\item \url{https://www.link-labs.com/blog/what-is-sigfox}
+		\item \url{https://www.link-labs.com/blog/what-is-lorawan}
+		\item \url{https://www.link-labs.com/blog/what-is-weightless}
+		\item \url{https://www.link-labs.com/blog/lora-faqs}
+		\item \url{https://www.link-labs.com/blog/low-power-wide-area-network-lpwa}
+		\item \url{https://www.link-labs.com/blog/what-is-lora}
+		\item \url{https://www.link-labs.com/blog/nb-iot-vs-lora-vs-sigfox}
+		\item \url{https://www.link-labs.com/blog/sigfox-vs-lora}
+		\item \url{https://www.link-labs.com/blog/when-should-the-lorawan-specification-be-used}
+		\item \url{https://www.link-labs.com/blog/zigbee-vs-xbee}
+		\item \url{https://www.link-labs.com/blog/zigbee-lighting}
+		\item \url{https://www.link-labs.com/blog/is-lora-right-for-you}
+		\item \url{https://www.link-labs.com/blog/smart-lighting}\\
+	
+		\item \url{https://www.radio-electronics.com/info/cellulartelecomms/lte-long-term-evolution/ue-category-categories-classes.php}
+		\item \url{https://www.link-labs.com/blog/lte-iot-technologies}\\
+
+		\item \url{https://www.sam-solutions.com/blog/what-is-the-difference-between-m2m-and-iot/}
+	\end{itemize}
+}
+
+
+\clearpage
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{9} % 9 for numeric labels
+	\bibitem{cps} Berkeley, \textit{Cyber-physical systems}, \\
+	\url{https://ptolemy.berkeley.edu/projects/cps/}
+	\bibitem{smartGrid} Wikipedia, \textit{Smart grid}, \\
+	\url{https://en.wikipedia.org/wiki/Smart_grid}
+	\bibitem{industry4} John Bagterp Jørgensen, \textit{Cyber-Physical Systems (CPS)}, \\
+	\url{http://www.imm.dtu.dk/~jbjo/cps.html}
+	\bibitem{industry42} Bernard Marr, \textit{What Everyone Must Know About Industry 4.0}, \\
+	\url{https://www.forbes.com/sites/bernardmarr/2016/06/20/what-everyone-must-know-about-industry-4-0/#3b831c76795f}
+	\bibitem{industry43} Bernard Marr, \textit{What is Industry 4.0? Here's A Super Easy Explanation For Anyone}, \\
+	\url{https://www.forbes.com/sites/bernardmarr/2018/09/02/what-is-industry-4-0-heres-a-super-easy-explanation-for-anyone/#4a42af3f9788}
+	\bibitem{circulair} OVAM, \textit{De Circulaire Economie: wat is dat?}, \\
+	\url{http://vlaanderen-circulair.be/nl/kennis/wat-is-het}
+	\bibitem{wireless1} RS Components, \textit{11 Internet of Things (IoT) Protocols You Need to Know About}, [20 april 2015], \\
+	\url{https://www.rs-online.com/designspark/eleven-internet-of-things-iot-protocols-you-need-to-know-about}
+	\bibitem{wireless2} LinkLabs, \textit{The Complete List Of Wireless IoT Network Protocols}, [8 februari 2016], \\
+	\url{https://www.link-labs.com/blog/complete-list-iot-network-protocols}
+	\bibitem{wireless3} Eric Hines, \textit{Z-wave vs Zigbee vs Bluetooth vs Wifi: Which Smart Home Technology is Best For Your Situation?}, [19 oktober 2016], \\
+	\url{https://inovelli.com/z-wave-vs-zigbee-vs-bluetooth-vs-wifi-smart-home-technology/}
+	\bibitem{BTzigbee} Brian Ray, \textit{A Bluetooth \& ZigBee Comparison For IoT Applications}, [28 oktober 2015], \\
+	\url{https://www.link-labs.com/blog/bluetooth-zigbee-comparison}
+	\bibitem{BTvBLE}Brian Ray, \textit{Bluetooth Vs. Bluetooth Low Energy: What's The Difference?}, [1 nocember 2015], \\
+	\url{https://www.link-labs.com/blog/bluetooth-vs-bluetooth-low-energy}
+	\bibitem{DW1000}, DecaWave, \textit{DW1000 datasheet}, \\
+	\url{https://www.decawave.com/wp-content/uploads/2018/09/dw1000_datasheet_v2.17.pdf}
+	\bibitem{DW}, DecaWave, \textit{DW1000 Radio IC}, \\
+	\url{https://www.decawave.com/product/dw1000-radio-ic/}
+\end{thebibliography}
+
+
+
+\end{document}
