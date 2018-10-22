@@ -1,14 +1,16 @@
 # Github repository for the coarse "Mobile Communications - Labo"
 
-Group 2
-- Birgen Vermang ('''birgen.vermang@student.kuleuven.be''')
-- Sander Thierens ('''sander.thierens@student.kuleuven.be''')
-- Brecht Van Eeckhoudt ('''brecht.vaneeckhoudt@student.kuleuven.be''')
-- Louis Devreese ('''louis.devreese@student.kuleuven.be''')
-- Sarah Goossens ('''sarah.goossens1@student.kuleuven.be''')
+## Group 2
+Mail reports to `gilles.callebaut@kuleuven.be`
+Mail extra loaned hardware to `guus.leenders@kuleuven.be`
 
-Mail reports to '''gilles.callebaut@kuleuven.be'''
-Mail extra loaned hardware to '''guus.leenders@kuleuven.be'''
+- Birgen Vermang (`birgen.vermang@student.kuleuven.be`)
+- Sander Thierens (`sander.thierens@student.kuleuven.be`)
+- Brecht Van Eeckhoudt (`brecht.vaneeckhoudt@student.kuleuven.be`)
+- Louis Devreese (`louis.devreese@student.kuleuven.be`)
+- Sarah Goossens (`sarah.goossens1@student.kuleuven.be`)
+
+
 
 ## Shared LaTeX Documents
 - [Intermediate report](https://www.overleaf.com/4166333177hntjcvgkpbqy)
