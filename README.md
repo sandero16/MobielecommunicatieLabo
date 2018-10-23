@@ -10,11 +10,6 @@ Mail reports to `gilles.callebaut@kuleuven.be`. Mail extra loaned hardware to `g
 - Louis Devreese (`louis.devreese@student.kuleuven.be`)
 - Sarah Goossens (`sarah.goossens1@student.kuleuven.be`)
 
-
-
-### Shared LaTeX Documents
-- [Intermediate report](https://www.overleaf.com/4166333177hntjcvgkpbqy)
-
 ### Useful links
 - [Dramco LoRa Addon board](https://github.com/DRAMCO/EFM32-RN2483-LoRa-Node)
 - [Happy Ghecko](https://www.silabs.com/products/development-tools/mcu/32-bit/efm32-happy-gecko-starter-kit)
